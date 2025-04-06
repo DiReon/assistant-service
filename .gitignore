@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+*.drawio.bkp
+*.drawio.dtmp
+
+*-adminsdk-*.json
+**/serviceAccountKey.json
