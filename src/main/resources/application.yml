@@ -8,9 +8,14 @@ spring:
   cloud.vault:
     enabled: false
   ai:
-    openai:
-      api-key: dummy-openai-key
-    enabled: true
+    vertex:
+      ai:
+        gemini:
+          project-id: reginarus-go
+          location: europe-west1
+          chat:
+            options:
+              model: gemini-2.0-flash-lite-001
 
 whatsapp:
   api:

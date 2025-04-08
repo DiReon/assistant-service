@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Client {
     private String userId;
     private String email;
-    private String registrationDate;
+    private Long registrationDate;
     private String name;
     private String lastName;
     private String birthday;
@@ -27,19 +27,19 @@ public class Client {
     private String city;
     private String informationSource;
     private String source;
-    private PaymentStatus paymentStatus;
+    private String paymentStatus;
     private String photoUrl;
-    private Map<String, Object> journal;
-    private double lastWeight;
-    private double height;
+    private Map<String, JournalRecord> journal;
+    private Double lastWeight;
+    private Double height;
     private Map<String, String> completedTrainings;
     private Map<String, Integer> completedPrograms;
     private Map<String, String> completedLectures;
     private String goal;
     private String physicalActivity;
-    private long endOfAccessTimestamp;
-    private boolean hasNewNotifications;
-    private int points;
+    private Long endOfAccessTimestamp;
+    private Boolean hasNewNotifications;
+    private Integer points;
     private String trainerComments;
-    private boolean excludeFromControl;
+    private Boolean excludeFromControl;
 }

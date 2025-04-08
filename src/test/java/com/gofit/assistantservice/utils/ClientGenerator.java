@@ -19,7 +19,7 @@ public class ClientGenerator {
             .city("Test City")
             .informationSource("Internet")
             .source("Referral")
-            .paymentStatus(PaymentStatus.CONFIRMED)
+            .paymentStatus(PaymentStatus.CONFIRMED.name())
             .photoUrl("http://example.com/photo.jpg")
             .journal(new HashMap<>())
             .lastWeight(70.0)

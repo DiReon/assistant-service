@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import com.gofit.assistantservice.config.TestFirebaseConfig;
 import com.gofit.assistantservice.utils.ClientGenerator;
+import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
