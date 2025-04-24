@@ -26,14 +26,16 @@ public class RecupService {
             .filter(item -> LocalDate.parse(item.getDate()).isAfter(LocalDate.now().minusDays(7)))
             .toList();
         log.info("Client journal records: {}", records);
+        String clientInfo = client.getName() + " :";
         String journal = jsonService.toJson(records);
         String generation = chatClient
             .prompt()
-            .system("You are a helpful fitness assistant. Check the user data and give a recap message.")
-            .user(journal)
+            .system(SystemMessage.content)
+            .user(clientInfo + journal)
             .call()
             .content();
         log.info(generation);
         return "Recup message for client: " + generation;
+//        return jsonService.toJson(client);
     }
 }

@@ -36,4 +36,4 @@ build/
 *.drawio.dtmp
 
 *-adminsdk-*.json
-**/serviceAccountKey.json
+**/serviceAccountKey**

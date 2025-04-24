@@ -2,6 +2,7 @@ package com.gofit.assistantservice;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -14,6 +15,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -33,19 +35,29 @@ public class SmokeTest {
     @MockitoBean
     FirebaseRepository firebaseRepository;
 
+    @MockitoBean
+    RecupService recupService;
+
     private final String fakeId = "fakeId";
     static final String FAKE_RECAP_MESSAGE = "Recup message for client: fakeId";
     private CompletableFuture<Client> future;
+    private String trainingTitle = "Здоровье-1";
 
     @BeforeEach
     void beforeEach() {
         Client mockClient = ClientGenerator.generateMockClient(fakeId);
+        String dateString = LocalDate.now().minusDays(6).toString();
+        JournalRecord mockJournalRecord = ClientGenerator.generateMockJournalRecord(dateString);
+        Activity mockActivity = ClientGenerator.generateMockActivity(trainingTitle);
+        mockJournalRecord.getActivities().put(String.valueOf(System.currentTimeMillis()), mockActivity);
+//        mockClient.getJournal().put(dateString, mockJournalRecord);
         future = new CompletableFuture<>();
         CompletableFuture<Client> nullFuture = new CompletableFuture<>();
         when(firebaseRepository.getById(anyString())).thenReturn(nullFuture);
         when(firebaseRepository.getById(fakeId)).thenReturn(future);
         future.complete(mockClient);
         nullFuture.complete(null);
+        when(recupService.getRecupMessage(any(Client.class))).thenReturn(FAKE_RECAP_MESSAGE);
     }
 
     @SneakyThrows
@@ -62,6 +74,5 @@ public class SmokeTest {
         var messageFuture = assistantController.getMessageForClient(fakeId);
         var message = messageFuture.get();
         assertThat(message.getBody()).isEqualTo(FAKE_RECAP_MESSAGE);
-        assertThat(AssistantController.class).isNotNull();
     }
 }

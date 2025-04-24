@@ -1,6 +1,8 @@
 package com.gofit.assistantservice.utils;
 
+import com.gofit.assistantservice.Activity;
 import com.gofit.assistantservice.Client;
+import com.gofit.assistantservice.JournalRecord;
 import com.gofit.assistantservice.PaymentStatus;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -34,6 +36,19 @@ public class ClientGenerator {
             .points(100)
             .trainerComments("Keep up the good work!")
             .excludeFromControl(false)
+            .build();
+    }
+
+    public static JournalRecord generateMockJournalRecord(String date) {
+        return JournalRecord.builder()
+            .date(date)
+            .activities(new HashMap<>())
+            .build();
+    }
+
+    public static Activity generateMockActivity(String title) {
+        return Activity.builder()
+            .title(title)
             .build();
     }
 }

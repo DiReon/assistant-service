@@ -15,7 +15,7 @@ import lombok.Builder;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Activity {
     private String activityId;
-    private long dateCreated;
+    private Long dateCreated;
     private String title;
     private Integer points;
     private Integer monthTotalPoints;
