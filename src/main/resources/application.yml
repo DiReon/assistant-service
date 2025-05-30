@@ -13,6 +13,7 @@ spring:
         gemini:
           project-id: reginarus-go
           location: europe-west1
+          key: ${GOOGLE_API_KEY}
           chat:
             options:
               model: gemini-2.0-flash-lite-001

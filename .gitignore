@@ -37,3 +37,4 @@ build/
 
 *-adminsdk-*.json
 **/serviceAccountKey**
+etc/secrets/

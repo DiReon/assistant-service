@@ -9,7 +9,7 @@ import java.io.InputStream;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.ClassPathResource;
+import java.io.FileInputStream;
 
 @Configuration
 @Profile("!test")
@@ -17,8 +17,7 @@ public class FirebaseConfig {
 
     @Bean
     FirebaseApp firebaseApp() throws IOException {
-        ClassPathResource resource = new ClassPathResource("serviceAccountKey.json");
-        InputStream serviceAccount = resource.getInputStream();
+        InputStream serviceAccount = new FileInputStream("/etc/secrets/serviceAccountKey.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
             .setCredentials(GoogleCredentials.fromStream(serviceAccount))
