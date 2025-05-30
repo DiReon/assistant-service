@@ -17,11 +17,11 @@ public class FirebaseConfig {
 
     @Bean
     FirebaseApp firebaseApp() throws IOException {
-        InputStream serviceAccount = new FileInputStream("/etc/secrets/serviceAccountKey.json");
+        InputStream serviceAccount = new FileInputStream("/etc/secrets/serviceAccountKey_regina_go.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
             .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-            .setDatabaseUrl("https://reginarus-go-default-rtdb.firebaseio.com")
+            .setDatabaseUrl("https://regina-go.firebaseio.com")
             .build();
 
         return FirebaseApp.initializeApp(options);
