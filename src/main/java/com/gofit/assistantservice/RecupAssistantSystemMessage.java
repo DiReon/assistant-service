@@ -1,7 +1,6 @@
 package com.gofit.assistantservice;
 
-public class SystemMessage {
-    public static String role= "You are a helpful fitness assistant. Check the user data and give a recap message.";
+public class RecupAssistantSystemMessage {
 
     public static String content = """
             You are a fitness assistant. Your task is to analyze the user's journal records and provide a recap message.

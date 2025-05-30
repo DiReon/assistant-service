@@ -2,12 +2,14 @@ package com.gofit.assistantservice;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.gofit.assistantservice.config.TestFirebaseConfig;
 import com.gofit.assistantservice.utils.ClientGenerator;
+
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +17,10 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -27,7 +29,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 @ActiveProfiles("test")
 @RequiredArgsConstructor
 @Import({TestFirebaseConfig.class})
-public class SmokeTest {
+public class AssistantControllerTests {
 
     @Autowired
     AssistantController assistantController;
@@ -37,6 +39,9 @@ public class SmokeTest {
 
     @MockitoBean
     RecupService recupService;
+
+    @MockitoBean
+    ChatService chatService;
 
     private final String fakeId = "fakeId";
     static final String FAKE_RECAP_MESSAGE = "Recup message for client: fakeId";
@@ -60,19 +65,33 @@ public class SmokeTest {
         when(recupService.getRecupMessage(any(Client.class))).thenReturn(FAKE_RECAP_MESSAGE);
     }
 
-    @SneakyThrows
     @Test
+    @SneakyThrows
     void returnNotFoundIfClientIdIsNotFound() {
         var messageFuture = assistantController.getMessageForClient("id-does-not-exist");
         var message = messageFuture.get();
         assertThat(message.getBody()).isEqualTo("User data not found for ID: id-does-not-exist");
     }
 
-    @SneakyThrows
     @Test
+    @SneakyThrows
     void getRecapMessageForClient() {
         var messageFuture = assistantController.getMessageForClient(fakeId);
         var message = messageFuture.get();
         assertThat(message.getBody()).isEqualTo(FAKE_RECAP_MESSAGE);
+    }
+
+    @Test
+    @SneakyThrows
+    void answerClientQuestionWithResponseFromAssistant() {
+        var mockMessageText = "How to start training?";
+        ChatMessage chatMessage = ChatMessage.builder()
+        .text(mockMessageText)
+        .build();
+        var mockResponseText = "Pay for subscription first.";
+        when(chatService.getResponseToUserMessage(any())).thenReturn(mockResponseText);
+        ResponseEntity<Void> assistantMessage = assistantController.replyToMessage(chatMessage);
+        
+        assertEquals(assistantMessage.getStatusCode(), ResponseEntity.ok().build().getStatusCode());
     }
 }

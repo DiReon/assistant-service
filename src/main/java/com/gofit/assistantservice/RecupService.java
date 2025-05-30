@@ -30,7 +30,7 @@ public class RecupService {
         String journal = jsonService.toJson(records);
         String generation = chatClient
             .prompt()
-            .system(SystemMessage.content)
+            .system(RecupAssistantSystemMessage.content)
             .user(clientInfo + journal)
             .call()
             .content();
