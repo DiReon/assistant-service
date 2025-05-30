@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -42,5 +43,11 @@ public class AssistantController {
     assistantService.respondToUserMessage(userMessage);
     return ResponseEntity.ok().build();
   }
+  
+  @GetMapping("/info")
+  public String getInfo() {
+      return new String("Info");
+  }
+  
 
 }
