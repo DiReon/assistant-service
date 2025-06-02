@@ -29,7 +29,7 @@ public class Client {
     private String source;
     private String paymentStatus;
     private String photoUrl;
-    private Map<String, JournalRecord> journal;
+    // private Map<String, JournalRecord> journal;
     private Double lastWeight;
     private Double height;
     private Map<String, String> completedTrainings;
