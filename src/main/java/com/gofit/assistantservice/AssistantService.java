@@ -2,6 +2,7 @@ package com.gofit.assistantservice;
 
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,7 @@ public class AssistantService {
   }
 
   public void respondToUserMessage(ChatMessage userMessage) {
-    firebaseRepository.saveMessage(userMessage.getAuthorId(), userMessage).thenApply(result -> {
-      log.info("Message saved successfully for userId: {}", userMessage.getAuthorId());
-      return result;
-    }).exceptionally(ex -> {
-      log.error("Failed to save message for userId: {}: {}", userMessage.getAuthorId(), ex.getMessage(), ex);
-      return null;
-    });
+    firebaseRepository.saveMessage(userMessage.getAuthorId(), userMessage).thenApply(logSuccessMessage(userMessage));
 
     String response = chatService.getResponseToUserMessage(userMessage);
     ChatMessage chatMessage = ChatMessage.builder()
@@ -45,12 +40,13 @@ public class AssistantService {
         .type("assistant")
         .dateCreated(Instant.now().toEpochMilli())
         .build();
-    firebaseRepository.saveMessage(userMessage.getAuthorId(), chatMessage).thenApply(result -> {
+    firebaseRepository.saveMessage(userMessage.getAuthorId(), chatMessage).thenApply(logSuccessMessage(userMessage));
+  }
+
+  private Function<? super Void, ? extends Void> logSuccessMessage(ChatMessage userMessage) {
+    return result -> {
       log.info("Message saved successfully for userId: {}", userMessage.getAuthorId());
       return result;
-    }).exceptionally(ex -> {
-      log.error("Failed to save message for userId: {}: {}", userMessage.getAuthorId(), ex.getMessage(), ex);
-      return null;
-    });
+    };
   }
 }
