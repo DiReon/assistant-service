@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.gofit.assistantservice.models.ChatMessage;
+import com.gofit.assistantservice.models.Client;
 import com.gofit.assistantservice.repository.FirebaseRepository;
 
 @Slf4j
@@ -20,6 +21,8 @@ public class AssistantService {
   private final RecupService recupService;
 
   private final ChatService chatService;
+
+  private final ClientService clientService;
 
   public CompletableFuture<String> getMessageForClient(String clientId) {
     return firebaseRepository.getById(clientId)
@@ -37,7 +40,16 @@ public class AssistantService {
   public void respondToUserMessage(ChatMessage userMessage) {
     firebaseRepository.saveMessage(userMessage.getAuthorId(), userMessage).thenApply(logSuccessMessage(userMessage));
 
-    String response = chatService.getResponseToUserMessage(userMessage);
+    Client client = null;
+    if (userMessage.getAuthorId() != null) {
+       client = clientService.getClientById(userMessage.getAuthorId())
+        .join(); // Blocking call to ensure client data is available before proceeding
+    }
+    log.info("Client data retrieved for clientId: {}", userMessage.getAuthorId());
+    if (client == null) {
+      log.warn("Client not found for userId: {}", userMessage.getAuthorId());
+    }
+    String response = chatService.getResponseToUserMessage(userMessage, client);
     ChatMessage chatMessage = ChatMessage.builder()
         .text(response)
         .type("assistant")

@@ -42,4 +42,8 @@ public class Client {
     private Integer points;
     private String trainerComments;
     private Boolean excludeFromControl;
+
+    public boolean isActive() {
+        return (endOfAccessTimestamp != null) && (endOfAccessTimestamp > System.currentTimeMillis());
+    }
 }

@@ -100,7 +100,7 @@ public class AssistantControllerTests {
         .build();
     var mockResponseText = "Pay for subscription first.";
     when(firebaseRepository.saveMessage(anyString(), any())).thenReturn(new CompletableFuture<>());
-    when(chatService.getResponseToUserMessage(any())).thenReturn(mockResponseText);
+    when(chatService.getResponseToUserMessage(any(), any())).thenReturn(mockResponseText);
 
     ResponseEntity<Void> assistantMessage = assistantController.replyToMessage(chatMessage);
 
