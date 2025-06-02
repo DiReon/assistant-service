@@ -42,8 +42,12 @@ public class AssistantService {
 
     Client client = null;
     if (userMessage.getAuthorId() != null) {
-       client = clientService.getClientById(userMessage.getAuthorId())
-        .join(); // Blocking call to ensure client data is available before proceeding
+       client = clientService.getClientById(userMessage.getAuthorId()).exceptionally(ex -> {
+         log.error("Error fetching client data for userId: {}: {}", userMessage.getAuthorId(), ex.getMessage(), ex);
+         return null;
+       })
+       .toCompletableFuture()
+       .join(); // Blocking call to ensure client data is available before proceeding
     }
     log.info("Client data retrieved for clientId: {}", userMessage.getAuthorId());
     if (client == null) {

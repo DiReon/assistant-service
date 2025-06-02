@@ -24,6 +24,7 @@ public class FirebaseRepository {
 
     public CompletableFuture<Client> getById(String clientId) {
         var ref = firebaseDatabase.getReference("/users/" + clientId);
+        log.info("Fetching client data for clientId: {}", clientId);
         CompletableFuture<Client> future = new CompletableFuture<>();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -38,7 +39,8 @@ public class FirebaseRepository {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                log.error("Failed to fetch client data for clientId: {}: {}", clientId, databaseError.getMessage());
+                future.completeExceptionally(databaseError.toException());
             }
         });
         return future;
