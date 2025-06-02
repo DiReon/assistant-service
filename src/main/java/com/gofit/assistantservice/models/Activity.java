@@ -15,13 +15,13 @@ import lombok.Builder;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Activity {
     private String activityId;
-    private Long dateCreated;
+    // private Long dateCreated;
     private String title;
-    private Integer points;
-    private Integer monthTotalPoints;
-    private String eventPhotoUrl;
-    private Integer duration;
-    private Integer kkal;
-    private String thumbnailUrl;
-    private String complexity;
+    // private Integer points;
+    // private Integer monthTotalPoints;
+    // private String eventPhotoUrl;
+    // private Integer duration;
+    // private Integer kkal;
+    // private String thumbnailUrl;
+    // private String complexity;
 }

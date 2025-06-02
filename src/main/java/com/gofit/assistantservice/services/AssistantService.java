@@ -38,14 +38,15 @@ public class AssistantService {
   }
 
   public void respondToUserMessage(ChatMessage userMessage) {
-    firebaseRepository.saveMessage(userMessage.getAuthorId(), userMessage).thenApply(logSuccessMessage(userMessage));
-
+    userMessage.setDateCreated(Instant.now().toEpochMilli());
     Client client = null;
     if (userMessage.getAuthorId() != null) {
+      firebaseRepository.saveMessage(userMessage.getAuthorId(), userMessage).thenApply(logSuccessMessage(userMessage));
+
       // Blocking call to ensure client data is available before proceeding
       client = clientService.getClientById(userMessage.getAuthorId()).join();
     }
-    log.info("Client data retrieved for clientId: {}", userMessage.getAuthorId());
+  
     if (client == null) {
       log.warn("Client not found for userId: {}", userMessage.getAuthorId());
     }
