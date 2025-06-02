@@ -1,4 +1,4 @@
-package com.gofit.assistantservice;
+package com.gofit.assistantservice.prompts;
 
 public class RecupAssistantSystemMessage {
 

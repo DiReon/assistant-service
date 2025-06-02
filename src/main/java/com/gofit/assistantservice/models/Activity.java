@@ -1,4 +1,4 @@
-package com.gofit.assistantservice;
+package com.gofit.assistantservice.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.firebase.database.IgnoreExtraProperties;

@@ -1,4 +1,4 @@
-package com.gofit.assistantservice;
+package com.gofit.assistantservice.services;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
@@ -13,6 +13,9 @@ import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.stereotype.Service;
+
+import com.gofit.assistantservice.models.ChatMessage;
+import com.gofit.assistantservice.prompts.ChatAssistantSystemMessage;
 
 @Service
 public class ChatService {

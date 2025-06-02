@@ -1,4 +1,4 @@
-package com.gofit.assistantservice;
+package com.gofit.assistantservice.services;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -6,6 +6,10 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
+
+import com.gofit.assistantservice.models.Client;
+import com.gofit.assistantservice.models.JournalRecord;
+import com.gofit.assistantservice.prompts.RecupAssistantSystemMessage;
 
 @Slf4j
 @Service

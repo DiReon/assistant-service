@@ -1,10 +1,12 @@
-package com.gofit.assistantservice;
+package com.gofit.assistantservice.repository;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Repository;
 
+import com.gofit.assistantservice.models.ChatMessage;
+import com.gofit.assistantservice.models.Client;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;

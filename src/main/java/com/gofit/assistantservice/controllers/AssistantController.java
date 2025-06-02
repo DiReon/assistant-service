@@ -1,4 +1,4 @@
-package com.gofit.assistantservice;
+package com.gofit.assistantservice.controllers;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gofit.assistantservice.models.ChatMessage;
+import com.gofit.assistantservice.services.AssistantService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

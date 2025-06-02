@@ -1,11 +1,12 @@
 package com.gofit.assistantservice.utils;
 
-import com.gofit.assistantservice.Activity;
-import com.gofit.assistantservice.Client;
-import com.gofit.assistantservice.JournalRecord;
-import com.gofit.assistantservice.PaymentStatus;
 import java.time.LocalDate;
 import java.util.HashMap;
+
+import com.gofit.assistantservice.models.Activity;
+import com.gofit.assistantservice.models.Client;
+import com.gofit.assistantservice.models.JournalRecord;
+import com.gofit.assistantservice.models.PaymentStatus;
 
 public class ClientGenerator {
 

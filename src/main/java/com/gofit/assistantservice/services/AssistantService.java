@@ -1,4 +1,4 @@
-package com.gofit.assistantservice;
+package com.gofit.assistantservice.services;
 
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
@@ -6,6 +6,9 @@ import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import com.gofit.assistantservice.models.ChatMessage;
+import com.gofit.assistantservice.repository.FirebaseRepository;
 
 @Slf4j
 @Service

@@ -7,6 +7,14 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.gofit.assistantservice.config.TestFirebaseConfig;
+import com.gofit.assistantservice.controllers.AssistantController;
+import com.gofit.assistantservice.models.Activity;
+import com.gofit.assistantservice.models.ChatMessage;
+import com.gofit.assistantservice.models.Client;
+import com.gofit.assistantservice.models.JournalRecord;
+import com.gofit.assistantservice.repository.FirebaseRepository;
+import com.gofit.assistantservice.services.ChatService;
+import com.gofit.assistantservice.services.RecupService;
 import com.gofit.assistantservice.utils.ClientGenerator;
 
 import java.time.LocalDate;
