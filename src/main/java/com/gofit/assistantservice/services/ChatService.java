@@ -12,12 +12,14 @@ import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.stereotype.Service;
 
 import com.gofit.assistantservice.models.ChatMessage;
 import com.gofit.assistantservice.models.Client;
 import com.gofit.assistantservice.prompts.ChatAssistantSystemMessage;
+import com.gofit.assistantservice.prompts.PraiseAssistantSystemMessage;
 
 @Service
 public class ChatService {
@@ -59,5 +61,13 @@ public class ChatService {
         .content();
     chatMemory.add(userMessage.getAuthorId(), new AssistantMessage(assistantResponse));
     return assistantResponse;
+  }
+
+  public String getPraiseMessage(String clientInfo) {
+    String prompt = PraiseAssistantSystemMessage.content + " Training session info: " + clientInfo;
+    ChatOptions chatOptions = ChatOptions.builder()
+        .temperature(1.0)
+        .build();
+    return chatClient.prompt(new Prompt(prompt, chatOptions)).call().content();
   }
 }

@@ -9,12 +9,12 @@ public class ChatAssistantSystemMessage {
 
             Platform has below categories of training:
             - Экспресс (duration 20 minutes, low intensity)
-            - Здоровье (duration 30 minutes, medium intensity)
+            - Здоровье (duration 30 minutes, medium intensity, combination of exercises for the posture, strength exercises for the whole body and a bit of mobility and stretching)
             - Низкоинтенсивные (duration 30-45 minutes, medium intensity)
             - Сила+Кардио (duration 30-60 minutes, high intensity)
             - Рельеф (duration 30-45 minutes, low intensity with dumbells)
             - Суперпресс (abs trainings, 20-30 minutes, variuous intensity)
-            - Осанка (duration 20-30 minutes, low intensity, posture exercizes)
+            - Осанка (duration 20-30 minutes, low intensity, posture exercizes to relieve back pain, improve posture and strengthen the back muscles)
             - Йога (duration 20-60 minutes)
             - Стретчинг
             - Тазовое дно (female health, pelvic floor)

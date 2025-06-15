@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gofit.assistantservice.models.ChatMessage;
 import com.gofit.assistantservice.services.AssistantService;
+import com.gofit.assistantservice.services.ChatService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AssistantController {
 
   private final AssistantService assistantService;
+
+  private final ChatService chatService;
 
   @GetMapping("/recap/{clientId}")
   public CompletableFuture<ResponseEntity<?>> getMessageForClient(@PathVariable String clientId) {
@@ -46,11 +50,19 @@ public class AssistantController {
     assistantService.respondToUserMessage(userMessage);
     return ResponseEntity.ok().build();
   }
+
+  @GetMapping("/praise")
+  public ResponseEntity<Info> getPraiseMessage(@RequestParam String clientInfo) {
+      String message = chatService.getPraiseMessage(clientInfo);
+      return ResponseEntity.ok(new Info(message));
+  }
+  
   
   @GetMapping("/info")
   public String getInfo() {
       return new String("Info");
   }
   
+  record Info(String message) {}
 
 }

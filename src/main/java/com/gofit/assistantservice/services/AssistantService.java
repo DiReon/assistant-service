@@ -58,7 +58,7 @@ public class AssistantService {
         .build();
     firebaseRepository.saveMessage(userMessage.getAuthorId(), chatMessage).thenApply(logSuccessMessage(userMessage));
   }
-
+  
   private Function<? super Void, ? extends Void> logSuccessMessage(ChatMessage userMessage) {
     return result -> {
       log.info("Message saved successfully for userId: {}", userMessage.getAuthorId());
