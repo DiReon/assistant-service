@@ -91,7 +91,7 @@
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-vertex-ai-gemini-spring-boot-starter</artifactId>
-            <version>1.0.0-M5</version>
+            <version>1.0.0-M6</version>
         </dependency>
         <dependency>
             <groupId>com.google.cloud</groupId>

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.gofit.assistantservice.models.ChatMessage;
 import com.gofit.assistantservice.models.Client;
+import com.gofit.assistantservice.prompts.AssistantPersonality;
 import com.gofit.assistantservice.prompts.ChatAssistantSystemMessage;
 import com.gofit.assistantservice.prompts.PraiseAssistantSystemMessage;
 
@@ -51,7 +52,8 @@ public class ChatService {
     var history = chatMemory.get(userMessage.getAuthorId(), 50);
     List<Message> messages = new ArrayList<>(history.isEmpty() ? List.of() : history);
     String todayDateString = "Today date is: " + java.time.LocalDate.now().toString();
-    messages.add(new SystemMessage(ChatAssistantSystemMessage.content + clientDataString + todayDateString));
+    messages.add(new SystemMessage(
+        ChatAssistantSystemMessage.content + AssistantPersonality.masculine + clientDataString + todayDateString));
     var assistantResponse = chatClient
         .prompt(new Prompt(messages))
         .advisors(a -> a
@@ -64,7 +66,8 @@ public class ChatService {
   }
 
   public String getPraiseMessage(String clientInfo) {
-    String prompt = PraiseAssistantSystemMessage.content + " Training session info: " + clientInfo;
+    String prompt = PraiseAssistantSystemMessage.content + AssistantPersonality.masculine + " Training session info: "
+        + clientInfo;
     ChatOptions chatOptions = ChatOptions.builder()
         .temperature(1.0)
         .build();
