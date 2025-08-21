@@ -16,7 +16,7 @@ spring:
           key: ${GOOGLE_API_KEY}
           chat:
             options:
-              model: gemini-2.0-flash-lite-001
+              model: gemini-2.5-flash
 
 whatsapp:
   api:

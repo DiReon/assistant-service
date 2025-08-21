@@ -21,6 +21,7 @@ import com.gofit.assistantservice.models.Client;
 import com.gofit.assistantservice.prompts.AssistantPersonality;
 import com.gofit.assistantservice.prompts.ChatAssistantSystemMessage;
 import com.gofit.assistantservice.prompts.PraiseAssistantSystemMessage;
+import com.gofit.assistantservice.tools.AssistantTools;
 
 @Service
 public class ChatService {
@@ -56,6 +57,7 @@ public class ChatService {
         ChatAssistantSystemMessage.content + AssistantPersonality.masculine + clientDataString + todayDateString));
     var assistantResponse = chatClient
         .prompt(new Prompt(messages))
+        .tools(new AssistantTools())
         .advisors(a -> a
             .param(CHAT_MEMORY_CONVERSATION_ID_KEY, userMessage.getAuthorId())
             .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100))
